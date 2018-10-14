@@ -170,5 +170,19 @@ namespace MvcMovie.Controllers
         {
             return _context.Movie.Any(e => e.ID == id);
         }
+
+        // POST: Movies/Delete/6
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id, bool notUsed)
+        {
+            var movie = await _context.Movie
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
     }
 }
